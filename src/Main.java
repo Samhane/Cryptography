@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -12,16 +14,37 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
-        //String key = in.nextLine().trim();
-        String key = "ключ";
 
-        String filename = "input.txt";
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)));
+        System.out.println("Введите ключ");
+        String key = in.nextLine().trim();
+        //String key = "ключ";
+
+        System.out.println("Кодирование или декодирование? (1 или 0)");
+        int decode = in.nextInt();
+
+        String inputFilename = "input.txt";
+        String outputFilename = "output.txt";
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(inputFilename)));
 
         CrypthText cryptho = new CrypthText();
         cryptho.setKey(key);
-        cryptho.setTextToCrypth(scanner.nextLine());
+        cryptho.setSourceText(scanner.nextLine());
 
-        System.out.println(cryptho.crypth());
+        PrintWriter out = new PrintWriter(new File(outputFilename));
+
+        if (decode == 1) {
+            //выполняем кодирование
+            cryptho.crypth(false);
+            out.println(cryptho.getSecretText());
+        } else if (decode == 0) {
+            //выполняем декодирование
+            cryptho.crypth(true);
+            out.println(cryptho.getSourceText());
+        } else {
+            System.out.println("Введен неправльный режим (не кодирование и не декодирование)");
+        }
+
+        out.close();
+        System.out.println("Проверьте выходной файл " + outputFilename);
     }
 }

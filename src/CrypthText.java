@@ -9,13 +9,10 @@ public class CrypthText {
     private String key;
     private String textToCrypth;
     private String secretText;
-    private StringBuilder alphabet;
+    private String alphabet;
     private char[][] square;
 
     public void setKey(String key) throws Exception {
-        if (key.length() > 36) {
-            throw new Exception("Слишком длинный ключ");
-        }
         this.key = key;
     }
 
@@ -24,45 +21,61 @@ public class CrypthText {
     }
 
     public String crypth() {
-        String result = "";
         generateAlphavet();
-
-
-        String alph = alphavit.toString();
-        for (int k = 0; k < alph.length(); k++) {
-            result[i][j++] = alph.charAt(k);
-            if (j == size || j > size) {
-                j = 0;
-                i++;
-            }
-        }
-        for (int k = i; k < result.length; k++) {
-            for (int l = j; l < result[i].length; l++) {
-                result[i][j] = ' ';
-            }
-        }
-
-        return result;
+        createSquare();
+        print(square);
+        return secretText;
     }
 
     private void generateAlphavet() {
-        for (int i = 1072; i < 1103; i++) {
-            this.alphabet.append((char) i);
+        StringBuilder alp = new StringBuilder();
+        //формируем алфавит из русских символов
+        for (int i = 1072; i < 1104; i++) {
+            alp.append((char) i);
         }
+        //добавляем еще символы
+        for (int i = 32; i < 57; i++) {
+            alp.append((char) i);
+        }
+        this.alphabet = alp.toString();
     }
 
     private void createSquare() {
         int size = 6;
         this.square = new char[size][size];
-        int i = 0, j = 0;
-        for (int l = 0; l < key.length(); l++) {
-            this.square[i][j++] = key.charAt(l);
-            if (j == size) {
-                j = 0;
-                i++;
+        int indexKey = 0;
+
+        int i = 0;
+        while (i < square.length) {
+            int j = 0;
+            while (j < square[i].length) {
+                //добавляем в квадрат ключ
+                if (key.length() > indexKey) {
+                    if (!inSquare(key.charAt(indexKey))) {
+                        square[i][j] = key.charAt(indexKey);
+                        indexKey++;
+                        j++;
+                    } else {
+                        indexKey++;
+                    }
+                } else {
+                    //добавляем в квадрат остальные символы алфавита
+                    int indexAlphavet = 0;
+                    for (; i < square.length; i++, j = 0) {
+                        while (j < square.length) {
+                            if (!inSquare(alphabet.charAt(indexAlphavet))) {
+                                square[i][j] = alphabet.charAt(indexAlphavet);
+                                indexAlphavet++;
+                                j++;
+                            } else {
+                                indexAlphavet++;
+                            }
+                        }
+                    }
+                    break;
+                }
             }
-            //удалить из алфавита уже занятые ключом символы
-            this.alphabet.deleteCharAt(this.alphabet.indexOf(String.valueOf(this.key.charAt(l))));
+            i++;
         }
     }
 
@@ -73,6 +86,17 @@ public class CrypthText {
             }
             System.out.println();
         }
+    }
+
+    private boolean inSquare(char symbol) {
+        for (int i = 0; i < square.length; i++) {
+            for (int j = 0; j < square.length; j++) {
+                if (square[i][j] == symbol) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static String[] getBlocksByTwoChar(String str) {

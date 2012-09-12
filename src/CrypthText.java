@@ -7,40 +7,27 @@
  */
 public class CrypthText {
     private String key;
-
-    public String getSourceText() {
-        return sourceText;
-    }
-
-    public String getSecretText() {
-        return secretText;
-    }
-
     private String sourceText;
-    private String secretText;
+    private String resultText;
     private String alphabet;
     private char[][] square;
+    private boolean encode;
 
-    public void setKey(String key) throws Exception {
+    public String getResultText() {
+        return resultText;
+    }
+
+    public CrypthText(String key, String source, boolean encode) {
         this.key = key;
-    }
-
-    public void setSourceText(String sourceText) {
-        this.sourceText = sourceText;
-    }
-
-    public void crypth(boolean decode) {
+        this.sourceText = source;
+        this.encode = encode;
         generateAlphavet();
         createSquare();
         //print(square);
-        if (!decode) {
-            createSecretText();
-        } else {
-            createSourceText();
-        }
+        createResultText();
     }
 
-    private void createSourceText() {
+    private void createResultText() {
         String[] textToWork = getBlocksByTwoChar(sourceText);
         StringBuilder workSecret = new StringBuilder();
 
@@ -49,47 +36,27 @@ public class CrypthText {
                 //попался одиночный символ, нужно его дополнить чем нить, например пробелом
                 current = current.concat(" ");
             }
+
             //смотрим как стоят два символа и кодируем их
             int[] positionFirst = getColumnAndRow(current.charAt(0));
             int[] positionTwo = getColumnAndRow(current.charAt(1));
 
             if (positionFirst[0] == positionTwo[0] || positionFirst[1] == positionTwo[1]) {
                 //стоят в одной строке или столбце
-                workSecret.append(appendFromIdenticalToDecode(positionFirst));
-                workSecret.append(appendFromIdenticalToDecode(positionTwo));
+                if (this.encode) {
+                    workSecret.append(appendFromIdentical(positionFirst));
+                    workSecret.append(appendFromIdentical(positionTwo));
+                } else {
+                    workSecret.append(appendFromIdenticalToDecode(positionFirst));
+                    workSecret.append(appendFromIdenticalToDecode(positionTwo));
+                }
             } else {
                 workSecret.append(square[positionFirst[0]][positionTwo[1]]);
                 workSecret.append(square[positionTwo[0]][positionFirst[1]]);
             }
         }
 
-        sourceText = workSecret.toString();
-    }
-
-    private void createSecretText() {
-        String[] textToWork = getBlocksByTwoChar(sourceText);
-        StringBuilder workSecret = new StringBuilder();
-
-        for (String current : textToWork) {
-            if (current.length() == 1) {
-                //попался одиночный символ, нужно его дополнить чем нить, например пробелом
-                current = current.concat(" ");
-            }
-            //смотрим как стоят два символа и кодируем их
-            int[] positionFirst = getColumnAndRow(current.charAt(0));
-            int[] positionTwo = getColumnAndRow(current.charAt(1));
-
-            if (positionFirst[0] == positionTwo[0] || positionFirst[1] == positionTwo[1]) {
-                //стоят в одной строке или столбце
-                workSecret.append(appendFromIdentical(positionFirst));
-                workSecret.append(appendFromIdentical(positionTwo));
-            } else {
-                workSecret.append(square[positionFirst[0]][positionTwo[1]]);
-                workSecret.append(square[positionTwo[0]][positionFirst[1]]);
-            }
-        }
-
-        secretText = workSecret.toString();
+        resultText = workSecret.toString();
     }
 
     private char appendFromIdentical(int[] position) {

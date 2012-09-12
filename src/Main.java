@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -19,14 +20,16 @@ public class Main {
         System.out.println("Кодирование или декодирование? (1 или 0)");
         int encode = in.nextInt();
 
-        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<String> source = new ArrayList<String>();
         String tmp;
         while ((tmp = inputFile.readLine()) != null) {
-            stringBuilder.append(tmp);
+            source.add(tmp);
         }
-        String source = stringBuilder.toString().toLowerCase();
         CrypthText cryptho = new CrypthText(key, source, encode == 1);
-        outFile.println(cryptho.getResultText());
+        ArrayList<String> result = cryptho.getResultText();
+        for (String currentAnswer : result) {
+            outFile.println(currentAnswer);
+        }
 
         outFile.close();
         System.out.println("Проверьте выходной файл " + outputFilename);

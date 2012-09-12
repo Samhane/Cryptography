@@ -1,30 +1,28 @@
-/**
- * Created with IntelliJ IDEA.
- * User: samhane
- * Date: 10.09.12
- * Time: 18:44
- * To change this template use File | Settings | File Templates.
- */
+import java.util.ArrayList;
+
 public class CrypthText {
     private String key;
     private String sourceText;
-    private String resultText;
+    private ArrayList<String> resultText;
     private String alphabet;
     private char[][] square;
     private boolean encode;
 
-    public String getResultText() {
+    public ArrayList<String> getResultText() {
         return resultText;
     }
 
-    public CrypthText(String key, String source, boolean encode) {
+    public CrypthText(String key, ArrayList<String> source, boolean encode) {
         this.key = key;
-        this.sourceText = source;
         this.encode = encode;
+        this.resultText = new ArrayList<String>();
         generateAlphavet();
         createSquare();
         //print(square);
-        createResultText();
+        for (String currentSource : source) {
+            this.sourceText = currentSource;
+            createResultText();
+        }
     }
 
     private void createResultText() {
@@ -56,7 +54,7 @@ public class CrypthText {
             }
         }
 
-        resultText = workSecret.toString();
+        resultText.add(workSecret.toString());
     }
 
     private char appendFromIdentical(int[] position) {

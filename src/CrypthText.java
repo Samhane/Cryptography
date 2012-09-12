@@ -41,6 +41,29 @@ public class CrypthText {
     }
 
     private void createSourceText() {
+        String[] textToWork = getBlocksByTwoChar(sourceText);
+        StringBuilder workSecret = new StringBuilder();
+
+        for (String current : textToWork) {
+            if (current.length() == 1) {
+                //попался одиночный символ, нужно его дополнить чем нить, например пробелом
+                current = current.concat(" ");
+            }
+            //смотрим как стоят два символа и кодируем их
+            int[] positionFirst = getColumnAndRow(current.charAt(0));
+            int[] positionTwo = getColumnAndRow(current.charAt(1));
+
+            if (positionFirst[0] == positionTwo[0] || positionFirst[1] == positionTwo[1]) {
+                //стоят в одной строке или столбце
+                workSecret.append(appendFromIdenticalToDecode(positionFirst));
+                workSecret.append(appendFromIdenticalToDecode(positionTwo));
+            } else {
+                workSecret.append(square[positionFirst[0]][positionTwo[1]]);
+                workSecret.append(square[positionTwo[0]][positionFirst[1]]);
+            }
+        }
+
+        sourceText = workSecret.toString();
     }
 
     private void createSecretText() {
@@ -74,6 +97,14 @@ public class CrypthText {
             return square[position[0]][position[1] + 1];
         } else {
             return square[position[0] + 1][0];
+        }
+    }
+
+    private char appendFromIdenticalToDecode(int[] position) {
+        if ((position[1] - 1) >= 0) {
+            return square[position[0]][position[1] - 1];
+        } else {
+            return square[position[0] - 1][square.length - 1];
         }
     }
 

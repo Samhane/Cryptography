@@ -9,17 +9,22 @@ public class Main {
         String inputFilename = "input.txt";
         String outputFilename = "output.txt";
 
-        Scanner inputFile = new Scanner(new BufferedReader(new FileReader(inputFilename)));
+        BufferedReader inputFile = new BufferedReader(new FileReader(inputFilename));
         PrintWriter outFile = new PrintWriter(new File(outputFilename));
         Scanner in = new Scanner(System.in);
 
         System.out.println("Введите ключ");
-        String key = in.nextLine().trim();
+        String key = in.nextLine().trim().toLowerCase();
 
         System.out.println("Кодирование или декодирование? (1 или 0)");
         int encode = in.nextInt();
 
-        String source = inputFile.nextLine().trim();
+        StringBuilder stringBuilder = new StringBuilder();
+        String tmp;
+        while ((tmp = inputFile.readLine()) != null) {
+            stringBuilder.append(tmp);
+        }
+        String source = stringBuilder.toString().toLowerCase();
         CrypthText cryptho = new CrypthText(key, source, encode == 1);
         outFile.println(cryptho.getResultText());
 

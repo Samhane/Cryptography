@@ -26,9 +26,11 @@ public class Main {
         while ((tmp = inputFile.readLine()) != null) {
             source.add(tmp);
         }
-        //Task1 cryptho = new Task1(key, source, encode == 1);
+        //Task1 task1 = new Task1(key, source, encode == 1);
+        //ArrayList<String> result = task1.getResultText();
         Task15 task15 = new Task15(key, source, encode == 1);
         ArrayList<String> result = task15.getResultText();
+
         for (String currentAnswer : result) {
             outFile.println(currentAnswer);
         }

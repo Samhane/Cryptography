@@ -1,16 +1,7 @@
 import java.util.ArrayList;
 
-public class Task1 {
-    private String key;
-    private String sourceText;
-    private ArrayList<String> resultText;
-    private String alphabet;
+public class Task1 extends CrypthText {
     private char[][] square;
-    private boolean encode;
-
-    public ArrayList<String> getResultText() {
-        return resultText;
-    }
 
     public Task1(String key, ArrayList<String> source, boolean encode) {
         this.key = key;
@@ -25,7 +16,7 @@ public class Task1 {
         }
     }
 
-    private void createResultText() {
+    protected void createResultText() {
         String[] textToWork = getBlocksByTwoChar(sourceText);
         StringBuilder workSecret = new StringBuilder();
 
@@ -90,19 +81,6 @@ public class Task1 {
         return null;
     }
 
-    private void generateAlphavet() {
-        StringBuilder alp = new StringBuilder();
-        //формируем алфавит из русских символов
-        for (int i = 1072; i < 1104; i++) {
-            alp.append((char) i);
-        }
-        //добавляем еще символы
-        for (int i = 32; i < 57; i++) {
-            alp.append((char) i);
-        }
-        this.alphabet = alp.toString();
-    }
-
     private void createSquare() {
         int size = 6;
         this.square = new char[size][size];
@@ -143,18 +121,18 @@ public class Task1 {
     }
 
     private void print(char[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
+        for (char[] anArr : arr) {
             for (int j = 0; j < arr.length; j++) {
-                System.out.print(arr[i][j] + " ");
+                System.out.print(anArr[j] + " ");
             }
             System.out.println();
         }
     }
 
     private boolean inSquare(char symbol) {
-        for (int i = 0; i < square.length; i++) {
+        for (char[] aSquare : square) {
             for (int j = 0; j < square.length; j++) {
-                if (square[i][j] == symbol) {
+                if (aSquare[j] == symbol) {
                     return true;
                 }
             }

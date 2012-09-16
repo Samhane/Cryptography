@@ -1,16 +1,7 @@
 import java.util.ArrayList;
 
-public class Task15 {
-    private String key;
-    private String sourceText;
-    private ArrayList<String> resultText;
-    private String alphabet;
+public class Task15 extends CrypthText {
     private String[] strings;
-    private boolean encode;
-
-    public ArrayList<String> getResultText() {
-        return resultText;
-    }
 
     public Task15(String key, ArrayList<String> source, boolean encode) {
         this.key = key;
@@ -26,22 +17,9 @@ public class Task15 {
         }
     }
 
-    private void createResultText() {
+    protected void createResultText() {
         StringBuilder workSecret = new StringBuilder();
         resultText.add(workSecret.toString());
-    }
-
-    private void generateAlphavet() {
-        StringBuilder alp = new StringBuilder();
-        //формируем алфавит из русских символов
-        for (int i = 1072; i < 1104; i++) {
-            alp.append((char) i);
-        }
-        //добавляем еще символы
-        for (int i = 32; i < 57; i++) {
-            alp.append((char) i);
-        }
-        this.alphabet = alp.toString();
     }
 
     private void createStrings() {

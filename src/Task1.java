@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class CrypthText {
+public class Task1 {
     private String key;
     private String sourceText;
     private ArrayList<String> resultText;
@@ -12,7 +12,7 @@ public class CrypthText {
         return resultText;
     }
 
-    public CrypthText(String key, ArrayList<String> source, boolean encode) {
+    public Task1(String key, ArrayList<String> source, boolean encode) {
         this.key = key;
         this.encode = encode;
         this.resultText = new ArrayList<String>();

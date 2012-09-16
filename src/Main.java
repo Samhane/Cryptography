@@ -15,7 +15,8 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Введите ключ");
-        String key = in.nextLine().trim().toLowerCase();
+        //String key = in.nextLine().trim().toLowerCase();
+        String key = "сенсентябрь";
 
         System.out.println("Кодирование или декодирование? (1 или 0)");
         int encode = in.nextInt();
@@ -25,8 +26,9 @@ public class Main {
         while ((tmp = inputFile.readLine()) != null) {
             source.add(tmp);
         }
-        CrypthText cryptho = new CrypthText(key, source, encode == 1);
-        ArrayList<String> result = cryptho.getResultText();
+        //Task1 cryptho = new Task1(key, source, encode == 1);
+        Task15 task15 = new Task15(key, source, encode == 1);
+        ArrayList<String> result = task15.getResultText();
         for (String currentAnswer : result) {
             outFile.println(currentAnswer);
         }

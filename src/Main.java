@@ -28,8 +28,14 @@ public class Main {
         }
         //Task1 task1 = new Task1(key, source, encode == 1);
         //ArrayList<String> result = task1.getResultText();
-        Task15 task15 = new Task15(key, source, encode == 1);
-        ArrayList<String> result = task15.getResultText();
+        //Task15 task15 = new Task15(key, source, encode == 1);
+        //ArrayList<String> result = task15.getResultText();
+        System.out.println("Введите k");
+        int k = in.nextInt();
+        System.out.println("Введите l");
+        int l = in.nextInt();
+        Task3 task3 = new Task3(k, l, key, source, encode == 1);
+        ArrayList<String> result = task3.getResultText();
 
         for (String currentAnswer : result) {
             outFile.println(currentAnswer);

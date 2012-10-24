@@ -56,6 +56,8 @@ public class Main {
             case 11:
                 break;
             case 13:
+                Task13 task13 = new Task13(source, encode == 1);
+                result = task13.getResultText();
                 break;
             case 15:
                 //done

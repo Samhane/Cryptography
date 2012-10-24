@@ -32,8 +32,9 @@ public class Main {
         //ArrayList<String> result = task15.getResultText();
         System.out.println("Введите k");
         int k = in.nextInt();
-        Task3 task3 = new Task3(k, key, source, encode == 1);
-        ArrayList<String> result = task3.getResultText();
+        //Task3 task3 = new Task3(k, key, source, encode == 1);
+        Task5 task5 = new Task5(k, key, source, encode == 1);
+        ArrayList<String> result = task5.getResultText();
 
         for (String currentAnswer : result) {
             outFile.println(currentAnswer);

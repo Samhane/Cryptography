@@ -16,7 +16,6 @@ public class Task3 extends CrypthText {
         this.resultText = new ArrayList<String>();
         table = new char[k][l];
         generateAlphavet();
-        System.out.println(alphabet);
         createAlphavetOrderingIndex();
         StringBuilder tmp = new StringBuilder();
         for (String currentSource : source) {

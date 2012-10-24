@@ -16,7 +16,7 @@ public class Main {
 
         System.out.println("Введите ключ");
         //String key = in.nextLine().trim().toLowerCase();
-        String key = "сенсентябрь";
+        String key = "сеннте";
 
         System.out.println("Кодирование или декодирование? (1 или 0)");
         int encode = in.nextInt();
@@ -32,9 +32,7 @@ public class Main {
         //ArrayList<String> result = task15.getResultText();
         System.out.println("Введите k");
         int k = in.nextInt();
-        System.out.println("Введите l");
-        int l = in.nextInt();
-        Task3 task3 = new Task3(k, l, key, source, encode == 1);
+        Task3 task3 = new Task3(k, key, source, encode == 1);
         ArrayList<String> result = task3.getResultText();
 
         for (String currentAnswer : result) {

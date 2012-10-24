@@ -26,15 +26,45 @@ public class Main {
         while ((tmp = inputFile.readLine()) != null) {
             source.add(tmp);
         }
-        //Task1 task1 = new Task1(key, source, encode == 1);
-        //ArrayList<String> result = task1.getResultText();
-        //Task15 task15 = new Task15(key, source, encode == 1);
-        //ArrayList<String> result = task15.getResultText();
-        System.out.println("Введите k");
-        int k = in.nextInt();
-        //Task3 task3 = new Task3(k, key, source, encode == 1);
-        Task5 task5 = new Task5(k, key, source, encode == 1);
-        ArrayList<String> result = task5.getResultText();
+
+        int numberOfTask = 3;
+
+        int k;
+        ArrayList<String> result = new ArrayList<String>();
+        switch (numberOfTask) {
+            case 1:
+                //done
+                Task1 task1 = new Task1(key, source, encode == 1);
+                result = task1.getResultText();
+                break;
+            case 3:
+                System.out.println("Введите k");
+                k = in.nextInt();
+                Task3 task3 = new Task3(k, key, source, encode == 1);
+                result = task3.getResultText();
+                break;
+            case 5:
+                System.out.println("Введите k");
+                k = in.nextInt();
+                Task5 task5 = new Task5(k, key, source, encode == 1);
+                result = task5.getResultText();
+                break;
+            case 7:
+                break;
+            case 9:
+                break;
+            case 11:
+                break;
+            case 13:
+                break;
+            case 15:
+                //done
+                Task15 task15 = new Task15(key, source, encode == 1);
+                result = task15.getResultText();
+                break;
+            case 17:
+                break;
+        }
 
         for (String currentAnswer : result) {
             outFile.println(currentAnswer);

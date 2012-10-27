@@ -44,4 +44,18 @@ public abstract class CrypthText {
             System.out.println();
         }
     }
+
+    public String[] getBlocks(String str, int size) {
+        return str.split("(?<=\\G.{" + size + "})");
+    }
+
+    public String deleteSameSymbols(String str) {
+        String result = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (!result.contains(String.valueOf(str.charAt(i)))) {
+                result = result.concat(String.valueOf(str.charAt(i)));
+            }
+        }
+        return result;
+    }
 }

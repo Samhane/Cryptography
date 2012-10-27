@@ -17,7 +17,7 @@ public class Task1 extends CrypthText {
     }
 
     protected void createResultText() {
-        String[] textToWork = getBlocksByTwoChar(sourceText);
+        String[] textToWork = getBlocks(sourceText, 2);
         StringBuilder workSecret = new StringBuilder();
 
         for (String current : textToWork) {
@@ -129,9 +129,5 @@ public class Task1 extends CrypthText {
             }
         }
         return false;
-    }
-
-    private static String[] getBlocksByTwoChar(String str) {
-        return str.split("(?<=\\G.{2})");
     }
 }

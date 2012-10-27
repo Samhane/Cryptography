@@ -112,18 +112,4 @@ public class Task3 extends CrypthText {
             indexesInAlphavetOrder[i] = key.indexOf(tmp[i]);
         }
     }
-
-    private String deleteSameSymbols(String str) {
-        String result = "";
-        for (int i = 0; i < str.length(); i++) {
-            if (!result.contains(String.valueOf(str.charAt(i)))) {
-                result = result.concat(String.valueOf(str.charAt(i)));
-            }
-        }
-        return result;
-    }
-
-    private String[] getBlocks(String str, int size) {
-        return str.split("(?<=\\G.{" + size + "})");
-    }
 }

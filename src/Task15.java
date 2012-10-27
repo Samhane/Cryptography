@@ -4,11 +4,8 @@ public class Task15 extends CrypthText {
     private String[] strings;
 
     public Task15(String key, ArrayList<String> source, boolean encode) {
-        this.key = key;
-        this.encode = encode;
-        this.resultText = new ArrayList<String>();
+        super(key, source, encode);
         this.strings = new String[2];
-        generateAlphavet();
         createStrings();
         print(strings);
         for (String currentSource : source) {

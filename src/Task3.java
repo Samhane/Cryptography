@@ -8,19 +8,12 @@ public class Task3 extends CrypthText {
     private int[] indexesInAlphavetOrder;
 
     public Task3(int k, String key, ArrayList<String> source, boolean encode) {
+        super(key, source, encode);
         this.k = k;
         this.key = deleteSameSymbols(key);
         this.l = this.key.length();
         indexesInAlphavetOrder = new int[this.l];
-        this.encode = encode;
-        this.resultText = new ArrayList<String>();
-        generateAlphavet();
         createAlphavetOrderingIndex();
-        StringBuilder tmp = new StringBuilder();
-        for (String currentSource : source) {
-            tmp.append(currentSource.trim());
-        }
-        this.sourceText = tmp.toString();
         createResultText();
     }
 

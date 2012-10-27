@@ -7,16 +7,9 @@ public class Task5 extends CrypthText {
     private int n;
 
     public Task5(int k, String key, ArrayList<String> source, boolean encode) {
+        super(key, source, encode);
         this.k = k;
-        this.encode = encode;
-        this.resultText = new ArrayList<String>();
-        generateAlphavet();
         this.m = alphabet.length();
-        StringBuilder tmp = new StringBuilder();
-        for (String currentSource : source) {
-            tmp.append(currentSource.trim());
-        }
-        this.sourceText = tmp.toString();
         createResultText();
     }
 

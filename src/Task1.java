@@ -4,10 +4,7 @@ public class Task1 extends CrypthText {
     private char[][] square;
 
     public Task1(String key, ArrayList<String> source, boolean encode) {
-        this.key = key;
-        this.encode = encode;
-        this.resultText = new ArrayList<String>();
-        generateAlphavet();
+        super(key, source, encode);
         createSquare();
         //print(square);
         for (String currentSource : source) {

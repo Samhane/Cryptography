@@ -3,10 +3,8 @@ import java.util.ArrayList;
 public class Task13 extends CrypthText {
     private char[][] matrix;
 
-    public Task13(ArrayList<String> source, boolean encode) {
-        this.encode = encode;
-        this.resultText = new ArrayList<String>();
-        generateAlphavet();
+    public Task13(String key, ArrayList<String> source, boolean encode) {
+        super(key, source, encode);
         int sizeTwo = (int) Math.sqrt(alphabet.length());
         if (Math.sqrt(alphabet.length()) > 0) {
             sizeTwo++;
@@ -21,11 +19,6 @@ public class Task13 extends CrypthText {
             }
         }
         print(matrix);
-        StringBuilder tmp = new StringBuilder();
-        for (String currentSource : source) {
-            tmp.append(currentSource.trim());
-        }
-        this.sourceText = tmp.toString();
         createResultText();
     }
 

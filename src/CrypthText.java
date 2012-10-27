@@ -10,6 +10,18 @@ public abstract class CrypthText {
     protected CrypthText() {
     }
 
+    public CrypthText(String key, ArrayList<String> source, boolean encode) {
+        this.key = key;
+        this.encode = encode;
+        this.resultText = new ArrayList<String>();
+        StringBuilder tmp = new StringBuilder();
+        for (String currentSource : source) {
+            tmp.append(currentSource.trim());
+        }
+        this.sourceText = tmp.toString();
+        generateAlphavet();
+    }
+
     public ArrayList<String> getResultText() {
         return resultText;
     }

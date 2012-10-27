@@ -58,6 +58,11 @@ public class Task3 extends CrypthText {
             }
         }
         print(table);
+        for (int i = 0; i < key.length(); i++) {
+            System.out.print(key.charAt(i) + " ");
+        }
+        System.out.println();
+        System.out.println("---------");
 
         StringBuilder tmp = new StringBuilder();
         for (int i = 0; i < table.length; i++) {
@@ -85,6 +90,11 @@ public class Task3 extends CrypthText {
             }
         }
         print(table);
+        for (int i = 0; i < key.length(); i++) {
+            System.out.print(key.charAt(i) + " ");
+        }
+        System.out.println();
+        System.out.println("---------");
 
         StringBuilder tmp = new StringBuilder();
         for (int i = 0; i < indexesInAlphavetOrder.length; i++) {
@@ -111,20 +121,6 @@ public class Task3 extends CrypthText {
             }
         }
         return result;
-    }
-
-    private void print(char[][] arr) {
-        for (char[] anArr : arr) {
-            for (int j = 0; j < anArr.length; j++) {
-                System.out.print(anArr[j] + " ");
-            }
-            System.out.println();
-        }
-        for (int i = 0; i < key.length(); i++) {
-            System.out.print(key.charAt(i) + " ");
-        }
-        System.out.println();
-        System.out.println("---------");
     }
 
     private String[] getBlocks(String str, int size) {

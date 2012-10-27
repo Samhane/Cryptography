@@ -62,14 +62,4 @@ public class Task13 extends CrypthText {
         }
         return result;
     }
-
-    private void print(char[][] arr) {
-        for (char[] anArr : arr) {
-            for (int j = 0; j < anArr.length; j++) {
-                System.out.print(anArr[j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("---------");
-    }
 }

@@ -120,15 +120,6 @@ public class Task1 extends CrypthText {
         }
     }
 
-    private void print(char[][] arr) {
-        for (char[] anArr : arr) {
-            for (int j = 0; j < arr.length; j++) {
-                System.out.print(anArr[j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
     private boolean inSquare(char symbol) {
         for (char[] aSquare : square) {
             for (int j = 0; j < square.length; j++) {

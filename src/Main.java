@@ -38,6 +38,7 @@ public class Main {
                 result = task1.getResultText();
                 break;
             case 3:
+                //done
                 System.out.println("Введите k");
                 k = in.nextInt();
                 Task3 task3 = new Task3(k, key, source, encode == 1);
@@ -56,6 +57,7 @@ public class Main {
             case 11:
                 break;
             case 13:
+                //done
                 Task13 task13 = new Task13(source, encode == 1);
                 result = task13.getResultText();
                 break;

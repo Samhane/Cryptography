@@ -16,7 +16,7 @@ public abstract class CrypthText {
         this.resultText = new ArrayList<String>();
         StringBuilder tmp = new StringBuilder();
         for (String currentSource : source) {
-            tmp.append(currentSource.trim());
+            tmp.append(currentSource.toLowerCase());
         }
         this.sourceText = tmp.toString();
         generateAlphavet();

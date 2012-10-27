@@ -7,7 +7,11 @@ public class Task13 extends CrypthText {
         this.encode = encode;
         this.resultText = new ArrayList<String>();
         generateAlphavet();
-        matrix = new char[6][this.alphabet.length() / 6 + 1];
+        int sizeTwo = (int) Math.sqrt(alphabet.length());
+        if (Math.sqrt(alphabet.length()) > 0) {
+            sizeTwo++;
+        }
+        matrix = new char[(int) Math.sqrt(alphabet.length())][sizeTwo];
         int index = 0;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -16,6 +20,7 @@ public class Task13 extends CrypthText {
                 }
             }
         }
+        print(matrix);
         StringBuilder tmp = new StringBuilder();
         for (String currentSource : source) {
             tmp.append(currentSource.trim());
@@ -56,5 +61,15 @@ public class Task13 extends CrypthText {
             }
         }
         return result;
+    }
+
+    private void print(char[][] arr) {
+        for (char[] anArr : arr) {
+            for (int j = 0; j < anArr.length; j++) {
+                System.out.print(anArr[j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("---------");
     }
 }

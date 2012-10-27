@@ -14,7 +14,6 @@ public class Task3 extends CrypthText {
         indexesInAlphavetOrder = new int[this.l];
         this.encode = encode;
         this.resultText = new ArrayList<String>();
-        table = new char[k][l];
         generateAlphavet();
         createAlphavetOrderingIndex();
         StringBuilder tmp = new StringBuilder();
@@ -43,6 +42,11 @@ public class Task3 extends CrypthText {
     }
 
     private String decode(String block) {
+        int sizeTwo = block.length() / l;
+        if (block.length() % l > 0) {
+            sizeTwo++;
+        }
+        table = new char[sizeTwo][l];
         int indexBlock = 0;
         for (int i = 0; i < indexesInAlphavetOrder.length; i++) {
             for (int m = 0; m < table.length; m++) {
@@ -65,6 +69,11 @@ public class Task3 extends CrypthText {
     }
 
     private String encode(String block) {
+        int sizeTwo = block.length() / l;
+        if (block.length() % l > 0) {
+            sizeTwo++;
+        }
+        table = new char[sizeTwo][l];
         int indexBlock = 0;
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {

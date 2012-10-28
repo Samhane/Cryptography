@@ -27,7 +27,7 @@ public class Main {
             source.add(tmp);
         }
 
-        int numberOfTask = 3;
+        int numberOfTask = 5;
 
         int k;
         ArrayList<String> result = new ArrayList<String>();

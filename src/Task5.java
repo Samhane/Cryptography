@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Task5 extends CrypthText {
     private int k;
-    private String alphavetB;
     private int m;
     private int n;
 
@@ -15,34 +14,59 @@ public class Task5 extends CrypthText {
 
     @Override
     protected void createResultText() {
-        for (int i = 1; i <= this.m / 2; i++) {
+        for (int i = 2; i <= this.m / 2; i++) {
             if (gcd(i, this.m) == 1) {
                 this.n = i;
                 break;
             }
         }
-        createAlphavetB();
-        StringBuilder workSecret = new StringBuilder();
         if (this.encode) {
-            for (int i = 0; i < this.sourceText.length(); i++) {
-                workSecret.append(this.alphavetB.charAt(this.alphabet.indexOf(this.sourceText.charAt(i))));
-            }
+            resultText.add(encode());
         } else {
-            for (int i = 0; i < this.sourceText.length(); i++) {
-                workSecret.append(this.alphabet.charAt(this.alphavetB.indexOf(this.sourceText.charAt(i))));
-            }
+            resultText.add(decode());
         }
-        resultText.add(workSecret.toString());
+        print();
     }
 
-    private void createAlphavetB() {
-        char[] tmp = alphabet.toCharArray();
-        StringBuilder b = new StringBuilder();
-        for (int i = 0; i < tmp.length; i++) {
-            int current = ((int) tmp[i]) * this.n + this.k % this.m;
-            b.append((char) current);
+    private void print() {
+        System.out.println("N=" + this.n);
+        System.out.println("K=" + this.k);
+        System.out.println("M=" + this.m);
+        StringBuilder numbers = new StringBuilder();
+        StringBuilder alp = new StringBuilder();
+        for (int i = 0; i < alphabet.length(); i++) {
+            numbers.append((int) alphabet.charAt(i)).append(" ");
+            alp.append('|').append(alphabet.charAt(i)).append("|  ");
         }
-        this.alphavetB = b.toString();
+        System.out.println(numbers);
+        System.out.println(alp);
+        System.out.println("-------");
+        System.out.println(sourceText);
+        System.out.println(resultText);
+    }
+
+    private String encode() {
+        StringBuilder workSecret = new StringBuilder();
+        for (int i = 0; i < this.sourceText.length(); i++) {
+            int newIndex = (alphabet.indexOf(sourceText.charAt(i)) * this.n + this.k) % this.m;
+            workSecret.append(this.alphabet.charAt(newIndex));
+        }
+        return workSecret.toString();
+    }
+
+    private String decode() {
+        StringBuilder workSecret = new StringBuilder();
+        for (int i = 0; i < this.sourceText.length(); i++) {
+            //TODO закончить с расшифровкой
+            int currentIndex = this.alphabet.indexOf(sourceText.charAt(i)) - this.k;
+            if (currentIndex < 0) {
+                int fetchIndex = (currentIndex / this.n) % this.m;
+                workSecret.append(alphabet.charAt(42 + fetchIndex));
+            } else {
+                workSecret.append(alphabet.charAt((currentIndex / this.n) % this.m));
+            }
+        }
+        return workSecret.toString();
     }
 
     private int gcd(int a, int b) {

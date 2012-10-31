@@ -25,7 +25,7 @@ public class Task5 extends CrypthText {
         } else {
             resultText.add(decode());
         }
-        print();
+        //print();
     }
 
     private void print() {
@@ -59,12 +59,7 @@ public class Task5 extends CrypthText {
         for (int i = 0; i < this.sourceText.length(); i++) {
             //TODO закончить с расшифровкой
             int currentIndex = this.alphabet.indexOf(sourceText.charAt(i)) - this.k;
-            if (currentIndex < 0) {
-                int fetchIndex = (currentIndex / this.n) % this.m;
-                workSecret.append(alphabet.charAt(42 + fetchIndex));
-            } else {
-                workSecret.append(alphabet.charAt((currentIndex / this.n) % this.m));
-            }
+            workSecret.append(alphabet.charAt((currentIndex / this.n) % this.m));
         }
         return workSecret.toString();
     }

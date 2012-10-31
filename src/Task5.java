@@ -25,24 +25,6 @@ public class Task5 extends CrypthText {
         } else {
             resultText.add(decode());
         }
-        //print();
-    }
-
-    private void print() {
-        System.out.println("N=" + this.n);
-        System.out.println("K=" + this.k);
-        System.out.println("M=" + this.m);
-        StringBuilder numbers = new StringBuilder();
-        StringBuilder alp = new StringBuilder();
-        for (int i = 0; i < alphabet.length(); i++) {
-            numbers.append((int) alphabet.charAt(i)).append(" ");
-            alp.append('|').append(alphabet.charAt(i)).append("|  ");
-        }
-        System.out.println(numbers);
-        System.out.println(alp);
-        System.out.println("-------");
-        System.out.println(sourceText);
-        System.out.println(resultText);
     }
 
     private String encode() {
@@ -56,10 +38,17 @@ public class Task5 extends CrypthText {
 
     private String decode() {
         StringBuilder workSecret = new StringBuilder();
+        int reversedN = 0;
+        for (int i = 0; i < alphabet.length(); i++) {
+            if ((this.n * i) % this.m == 1) {
+                reversedN = i;
+                break;
+            }
+        }
         for (int i = 0; i < this.sourceText.length(); i++) {
-            //TODO закончить с расшифровкой
             int currentIndex = this.alphabet.indexOf(sourceText.charAt(i)) - this.k;
-            workSecret.append(alphabet.charAt((currentIndex / this.n) % this.m));
+            currentIndex = ((currentIndex * reversedN) % this.m + this.m) % this.m;
+            workSecret.append(alphabet.charAt(currentIndex));
         }
         return workSecret.toString();
     }

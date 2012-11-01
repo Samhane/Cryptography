@@ -15,9 +15,8 @@ public class Task11 extends CrypthText {
     @Override
     protected void createResultText() {
         StringBuilder result = new StringBuilder();
-        int indexKey = firstSymbol;
-        workingKey.append(key.charAt(indexKey));
-        indexKey = 0;
+        workingKey.append(key.charAt(firstSymbol));
+        int indexKey = 0;
 
         //шифровка
         for (int i = 0; i < sourceText.length(); i++) {
@@ -28,21 +27,22 @@ public class Task11 extends CrypthText {
             workingKey.append(alphabet.charAt(current));
             result.append(alphabet.charAt(current));
         }
-        System.out.println(workingKey);
         resultText.add(result.toString());
+        resultText.add("-----");
 
         //дешифровка
         sourceText = result.toString();
+        result = new StringBuilder();
         indexKey = 0;
         for (int i = 0; i < sourceText.length(); i++) {
             int symbol1 = alphabet.indexOf(sourceText.charAt(i));
             int symbol2 = alphabet.indexOf(workingKey.charAt(indexKey++));
             int current = (symbol1 - symbol2) % alphabet.length();
-            current = current > 0 ? current : (-1) * current;
-            result.append(alphabet.charAt(current));
+            current = current > 0 ? current : alphabet.length() + current;
+            result.append(alphabet.charAt(current % alphabet.length()));
         }
-        System.out.println(workingKey);
         resultText.add(result.toString());
+        resultText.add("----");
     }
 
     private static int getRandomBetween(int min, int max) {

@@ -5,25 +5,25 @@ public class Task5 extends CrypthText {
     private int m;
     private int n;
 
-    public Task5(int k, String key, ArrayList<String> source, boolean encode) {
+    public Task5(int n, int k, String key, ArrayList<String> source, boolean encode) {
         super(key, source, encode);
         this.k = k;
+        this.n = n;
         this.m = alphabet.length();
+        System.out.println(alphabet);
         createResultText();
     }
 
     @Override
     protected void createResultText() {
-        for (int i = 2; i <= this.m / 2; i++) {
-            if (gcd(i, this.m) == 1) {
-                this.n = i;
-                break;
-            }
-        }
-        if (this.encode) {
-            resultText.add(encode());
+        if (gcd(this.n, this.m) != 1) {
+            System.out.println("Ошибочное значение n");
         } else {
-            resultText.add(decode());
+            if (this.encode) {
+                resultText.add(encode());
+            } else {
+                resultText.add(decode());
+            }
         }
     }
 
@@ -47,7 +47,10 @@ public class Task5 extends CrypthText {
         }
         for (int i = 0; i < this.sourceText.length(); i++) {
             int currentIndex = this.alphabet.indexOf(sourceText.charAt(i)) - this.k;
-            currentIndex = ((currentIndex * reversedN) % this.m + this.m) % this.m;
+            currentIndex = (currentIndex * reversedN) % this.m;
+            if (currentIndex < 0) {
+                currentIndex = currentIndex + this.m;
+            }
             workSecret.append(alphabet.charAt(currentIndex));
         }
         return workSecret.toString();

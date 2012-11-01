@@ -27,7 +27,7 @@ public class Main {
             source.add(tmp);
         }
 
-        int numberOfTask = 5;
+        int numberOfTask = 7;
 
         int k;
         ArrayList<String> result = new ArrayList<String>();
@@ -45,9 +45,12 @@ public class Main {
                 result = task3.getResultText();
                 break;
             case 5:
+                //done
                 System.out.println("Введите k");
                 k = in.nextInt();
-                Task5 task5 = new Task5(k, key, source, encode == 1);
+                System.out.println("Введите n");
+                int n = in.nextInt();
+                Task5 task5 = new Task5(n, k, key, source, encode == 1);
                 result = task5.getResultText();
                 break;
             case 7:
@@ -57,6 +60,7 @@ public class Main {
             case 9:
                 break;
             case 11:
+                //done
                 Task11 task11 = new Task11(key, source, encode == 1);
                 result = task11.getResultText();
                 break;

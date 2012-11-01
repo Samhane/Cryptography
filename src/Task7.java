@@ -1,19 +1,20 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class Task7 extends CrypthText {
-    private double precision = 1000;
-    private Map<Character, Integer> frequency;
+    private double precision;
+    private Map<Character, Double> frequency;
     private int lengthText;
 
     public Task7(String key, ArrayList<String> sourceText, boolean encode) {
         super(key, sourceText, encode);
-        frequency = new HashMap<Character, Integer>();
+        this.alphabet = this.alphabet.substring(0, 31);
+        precision = 1000;
+        frequency = new HashMap<Character, Double>();
         this.lengthText = this.sourceText.length();
         for (int i = 0; i < alphabet.length(); i++) {
-            frequency.put(alphabet.charAt(i), 0);
+            frequency.put(alphabet.charAt(i), 0.0);
         }
         createResultText();
     }
@@ -24,17 +25,16 @@ public class Task7 extends CrypthText {
             if (frequency.containsKey(sourceText.charAt(i))) {
                 frequency.put(sourceText.charAt(i), frequency.get(sourceText.charAt(i)) + 1);
             } else {
-                System.out.println("Нет символа " + sourceText.charAt(i) + " !!!!!");
+                System.out.println("Нет символа " + sourceText.charAt(i));
             }
         }
-        TreeMap<Double, Character> weight = new TreeMap<Double, Character>();
-        for (Character key : this.frequency.keySet()) {
-            double currentValue = this.frequency.get(key) / (double) this.lengthText;
-            weight.put(Math.round(currentValue * precision) / precision, key);
-        }
         StringBuilder tmp = new StringBuilder();
-        for (Double key : weight.descendingKeySet()) {
-            tmp.append(weight.get(key)).append(" => ").append(key).append('\n');
+        for (Character key : frequency.keySet()) {
+            double current = frequency.get(key);
+            if (current != 0.0) {
+                current = current / (double) this.lengthText;
+                tmp.append(key).append(" => ").append((Math.round(current * precision) / precision)).append('\n');
+            }
         }
         resultText.add(tmp.toString());
     }

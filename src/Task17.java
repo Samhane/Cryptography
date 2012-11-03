@@ -1,5 +1,7 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 
 public class Task17 {
     private String number;
@@ -16,23 +18,35 @@ public class Task17 {
     }
 
     private void createAnagram() {
+        //TODO что делать с числами < 10 ?
+        //TODO что делать с числами типа 777 ?
         ArrayList<Character> allNumber = new ArrayList<Character>();
         for (int i = 0; i < this.number.length(); i++) {
             allNumber.add(this.number.charAt(i));
         }
         Collections.sort(allNumber);
+
         StringBuilder answer = new StringBuilder();
         int indexNumber = 0;
-        for (Character current : allNumber) {
-            if (current != this.number.charAt(indexNumber++)) {
-                answer.append(current);
+        Deque<Character> dequeWithNumbers = new ArrayDeque<Character>();
+        dequeWithNumbers.addAll(allNumber);
+
+        while (!dequeWithNumbers.isEmpty() && indexNumber < this.number.length()) {
+            Character first = dequeWithNumbers.getFirst();
+            if (first != this.number.charAt(indexNumber)) {
+                indexNumber++;
+                answer.append(first);
+                dequeWithNumbers.removeFirst();
             } else {
-                //TODO ставить сюда другие цифры
-                //и еще непонятно, как обрабатывать цифры типа 777
+                dequeWithNumbers.removeFirst();
+                Character tmp = dequeWithNumbers.removeFirst();
+                dequeWithNumbers.addFirst(first);
+                dequeWithNumbers.addFirst(tmp);
             }
         }
-        System.out.println(answer);
-        System.out.println(allNumber);
+
+        result.add(number);
+        result.add(answer.toString());
     }
 
     public ArrayList<String> getResultText() {

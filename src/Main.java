@@ -27,7 +27,7 @@ public class Main {
             source.add(tmp);
         }
 
-        int numberOfTask = 7;
+        int numberOfTask = 17;
 
         int k;
         ArrayList<String> result = new ArrayList<String>();
@@ -75,6 +75,8 @@ public class Main {
                 result = task15.getResultText();
                 break;
             case 17:
+                Task17 task17 = new Task17(source);
+                result = task17.getResultText();
                 break;
         }
 

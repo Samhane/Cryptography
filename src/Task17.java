@@ -14,12 +14,27 @@ public class Task17 {
             tmp.append(current);
         }
         this.number = tmp.toString();
-        createAnagram();
+        boolean create = false;
+        //TODO что делать с числами < 10 ?
+        if (this.number.length() == 1) {
+            this.number = "0".concat(this.number);
+        }
+        //TODO что делать с числами типа 777 ?
+        Character first = this.number.charAt(0);
+        for (int i = 0; i < this.number.length(); i++) {
+            if (this.number.charAt(i) != first) {
+                create = true;
+                break;
+            }
+        }
+        if (create) {
+            createAnagram();
+        } else {
+            System.out.println("Возникла ошибка");
+        }
     }
 
     private void createAnagram() {
-        //TODO что делать с числами < 10 ?
-        //TODO что делать с числами типа 777 ?
         ArrayList<Character> allNumber = new ArrayList<Character>();
         for (int i = 0; i < this.number.length(); i++) {
             allNumber.add(this.number.charAt(i));

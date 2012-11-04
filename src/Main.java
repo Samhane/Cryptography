@@ -27,7 +27,7 @@ public class Main {
             source.add(tmp);
         }
 
-        int numberOfTask = 17;
+        int numberOfTask = 9;
 
         int k;
         ArrayList<String> result = new ArrayList<String>();
@@ -58,6 +58,14 @@ public class Main {
                 result = task7.getResultText();
                 break;
             case 9:
+                System.out.println("Введите А: ");
+                int a = in.nextInt();
+                System.out.println("Введите С: ");
+                int c = in.nextInt();
+                System.out.println("Введите начальное значение для генератора");
+                int initial = in.nextInt();
+                Task9 task9 = new Task9(a, c, initial, source, encode == 1);
+                result = task9.getResultText();
                 break;
             case 11:
                 //done

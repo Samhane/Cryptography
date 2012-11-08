@@ -14,20 +14,21 @@ public class Main {
         PrintWriter outFile = new PrintWriter(new File(outputFilename));
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Введите ключ");
-        //String key = in.nextLine().trim().toLowerCase();
         String key = "сеннте";
 
-        System.out.println("Кодирование или декодирование? (1 или 0)");
-        int encode = in.nextInt();
+        int numberOfTask = 7;
+        int encode = 0;
+
+        if (numberOfTask != 17 || numberOfTask != 9 || numberOfTask != 7) {
+            System.out.println("Кодирование или декодирование? (1 или 0)");
+            encode = in.nextInt();
+        }
 
         ArrayList<String> source = new ArrayList<String>();
         String tmp;
         while ((tmp = inputFile.readLine()) != null) {
             source.add(tmp);
         }
-
-        int numberOfTask = 9;
 
         int k;
         ArrayList<String> result = new ArrayList<String>();
@@ -54,10 +55,12 @@ public class Main {
                 result = task5.getResultText();
                 break;
             case 7:
+                //done
                 Task7 task7 = new Task7("", source, encode == 1);
                 result = task7.getResultText();
                 break;
             case 9:
+                //done
                 System.out.println("Введите А: ");
                 int a = in.nextInt();
                 System.out.println("Введите С: ");

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public class Task7 extends CrypthText {
         this.alphabet = this.alphabet.substring(0, 31);
         precision = 1000;
         frequency = new HashMap<Character, Double>();
-        this.lengthText = this.sourceText.length();
+        this.lengthText = 0;
         for (int i = 0; i < alphabet.length(); i++) {
             frequency.put(alphabet.charAt(i), 0.0);
         }
@@ -24,18 +25,19 @@ public class Task7 extends CrypthText {
         for (int i = 0; i < sourceText.length(); i++) {
             if (frequency.containsKey(sourceText.charAt(i))) {
                 frequency.put(sourceText.charAt(i), frequency.get(sourceText.charAt(i)) + 1);
+                this.lengthText++;
             } else {
                 System.out.println("Нет символа " + sourceText.charAt(i));
             }
         }
-        StringBuilder tmp = new StringBuilder();
+
         for (Character key : frequency.keySet()) {
             double current = frequency.get(key);
             if (current != 0.0) {
                 current = current / (double) this.lengthText;
-                tmp.append(key).append(" => ").append((Math.round(current * precision) / precision)).append('\n');
+                resultText.add(key + " => " + (Math.round(current * precision) / precision));
             }
         }
-        resultText.add(tmp.toString());
+        Collections.sort(resultText);
     }
 }

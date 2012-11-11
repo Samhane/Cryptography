@@ -4,64 +4,54 @@ import java.util.Collections;
 import java.util.Deque;
 
 public class Task17 {
-    private String number;
     private ArrayList<String> result;
 
     public Task17(ArrayList<String> number) {
         result = new ArrayList<String>();
-        StringBuilder tmp = new StringBuilder();
         for (String current : number) {
-            tmp.append(current);
-        }
-        this.number = tmp.toString();
-        boolean create = false;
-        //TODO что делать с числами < 10 ?
-        if (this.number.length() == 1) {
-            this.number = "0".concat(this.number);
-        }
-        //TODO что делать с числами типа 777 ?
-        Character first = this.number.charAt(0);
-        for (int i = 0; i < this.number.length(); i++) {
-            if (this.number.charAt(i) != first) {
-                create = true;
-                break;
-            }
-        }
-        if (create) {
-            createAnagram();
-        } else {
-            System.out.println("Возникла ошибка");
+            createAnagram(current);
         }
     }
 
-    private void createAnagram() {
-        ArrayList<Character> allNumber = new ArrayList<Character>();
-        for (int i = 0; i < this.number.length(); i++) {
-            allNumber.add(this.number.charAt(i));
+    private void createAnagram(String number) {
+        ArrayList<String> allNumber = new ArrayList<String>();
+        for (int i = 0; i < number.length(); i++) {
+            allNumber.add(String.valueOf(number.charAt(i)));
         }
         Collections.sort(allNumber);
 
-        StringBuilder answer = new StringBuilder();
-        int indexNumber = 0;
-        Deque<Character> dequeWithNumbers = new ArrayDeque<Character>();
-        dequeWithNumbers.addAll(allNumber);
+        Deque<String> answer = new ArrayDeque<String>();
+        for (int i = 0; i < number.length(); i++) {
+            String toRemove = null;
+            for (String current : allNumber) {
+                if (!current.equals(String.valueOf(number.charAt(i)))) {
+                    answer.addLast(current);
+                    toRemove = current;
+                    break;
+                }
+            }
 
-        while (!dequeWithNumbers.isEmpty() && indexNumber < this.number.length()) {
-            Character first = dequeWithNumbers.getFirst();
-            if (first != this.number.charAt(indexNumber)) {
-                indexNumber++;
-                answer.append(first);
-                dequeWithNumbers.removeFirst();
+            if (toRemove != null) {
+                allNumber.remove(toRemove);
             } else {
-                dequeWithNumbers.removeFirst();
-                Character tmp = dequeWithNumbers.removeFirst();
-                dequeWithNumbers.addFirst(first);
-                dequeWithNumbers.addFirst(tmp);
+                //костыль, но работает
+                if (allNumber.size() == 1 && i > 0 && !allNumber.get(0).equals(String.valueOf(number.charAt(i - 1)))) {
+                    String tmp = answer.removeLast();
+                    answer.addLast(allNumber.get(0));
+                    allNumber.remove(0);
+                    answer.addLast(tmp);
+                } else {
+                    answer.clear();
+                    answer.addLast("Для данного числа не существет анаграммы");
+                }
+                break;
             }
         }
-
-        result.add(number);
-        result.add(answer.toString());
+        StringBuilder builder = new StringBuilder();
+        for (String current : answer) {
+            builder.append(current);
+        }
+        result.add(number + " -> " + builder.toString());
     }
 
     public ArrayList<String> getResultText() {

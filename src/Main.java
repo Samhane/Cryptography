@@ -16,10 +16,10 @@ public class Main {
 
         String key = "сеннте";
 
-        int numberOfTask = 7;
+        int numberOfTask = 17;
         int encode = 0;
 
-        if (numberOfTask != 17 || numberOfTask != 9 || numberOfTask != 7) {
+        if (numberOfTask != 17 && numberOfTask != 9 && numberOfTask != 7) {
             System.out.println("Кодирование или декодирование? (1 или 0)");
             encode = in.nextInt();
         }

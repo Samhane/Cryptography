@@ -1,7 +1,5 @@
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
+import java.util.Arrays;
 
 public class Task17 {
     private ArrayList<String> result;
@@ -14,47 +12,62 @@ public class Task17 {
     }
 
     private void createAnagram(String number) {
-        ArrayList<String> allNumber = new ArrayList<String>();
-        for (int i = 0; i < number.length(); i++) {
-            allNumber.add(String.valueOf(number.charAt(i)));
+        int orNum = Integer.parseInt(number);
+        int[] p = new int[number.length()];
+        int i = p.length - 1;
+        while (orNum > 0) {
+            p[i--] = orNum % 10;
+            orNum /= 10;
         }
-        Collections.sort(allNumber);
 
-        Deque<String> answer = new ArrayDeque<String>();
-        for (int i = 0; i < number.length(); i++) {
-            String toRemove = null;
-            for (String current : allNumber) {
-                if (!current.equals(String.valueOf(number.charAt(i)))) {
-                    answer.addLast(current);
-                    toRemove = current;
-                    break;
-                }
-            }
+        int[] original = Arrays.copyOf(p, p.length);
 
-            if (toRemove != null) {
-                allNumber.remove(toRemove);
-            } else {
-                //костыль, но работает
-                if (allNumber.size() == 1 && i > 0 && !allNumber.get(0).equals(String.valueOf(number.charAt(i - 1)))) {
-                    String tmp = answer.removeLast();
-                    answer.addLast(allNumber.get(0));
-                    allNumber.remove(0);
-                    answer.addLast(tmp);
-                } else {
-                    answer.clear();
-                    answer.addLast("Для данного числа не существет анаграммы");
-                }
+        boolean anagram = false;
+        while (nextPermutation(p)) {
+            if (checkNumber(original, p)) {
+                anagram = true;
                 break;
             }
         }
-        StringBuilder builder = new StringBuilder();
-        for (String current : answer) {
-            builder.append(current);
+        if (anagram) {
+            StringBuilder answer = new StringBuilder();
+            for (int aP : p) {
+                answer.append(aP);
+            }
+            result.add(number + "\n" + answer.toString() + "\n");
+        } else {
+            result.add(number + " -> " + "Нет анаграммы");
         }
-        result.add(number + " -> " + builder.toString());
     }
 
     public ArrayList<String> getResultText() {
         return result;
+    }
+
+    public boolean nextPermutation(int[] p) {
+        for (int a = p.length - 2; a >= 0; --a)
+            if (p[a] < p[a + 1])
+                for (int b = p.length - 1; ; --b)
+                    if (p[b] > p[a]) {
+                        int t = p[a];
+                        p[a] = p[b];
+                        p[b] = t;
+                        for (++a, b = p.length - 1; a < b; ++a, --b) {
+                            t = p[a];
+                            p[a] = p[b];
+                            p[b] = t;
+                        }
+                        return true;
+                    }
+        return false;
+    }
+
+    private boolean checkNumber(int[] original, int[] current) {
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == current[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

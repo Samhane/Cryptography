@@ -88,10 +88,27 @@ public class Main {
             case 17:
                 Task17 task17 = new Task17(source);
                 result = task17.getResultText();
+                Task17_work task17_work = new Task17_work(source);
+
+                result.addAll(task17_work.getResultText());
+                /*for (int i = 0; i < 1000000000; i++) {
+                    Task17_work task17_work = new Task17_work(source);
+                    result = task17_work.getResultText();
+                    Task17 task17 = new Task17(source);
+                    ArrayList<String> result2 = task17.getResultText();
+                    String one = result.get(0);
+                    String two = result2.get(0);
+                    if (!one.equals(two)) {
+                        System.out.println(one + " => " + two);
+                        break;
+                    }
+                }
+                  */
                 break;
         }
 
         for (String currentAnswer : result) {
+            System.out.println(currentAnswer);
             outFile.println(currentAnswer);
         }
 

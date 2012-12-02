@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class Task17 {
     private ArrayList<String> result;
@@ -12,62 +12,82 @@ public class Task17 {
     }
 
     private void createAnagram(String number) {
-        int orNum = Integer.parseInt(number);
-        int[] p = new int[number.length()];
-        int i = p.length - 1;
-        while (orNum > 0) {
-            p[i--] = orNum % 10;
-            orNum /= 10;
+        ArrayList<String> allNumber = new ArrayList<String>();
+        for (int i = 0; i < number.length(); i++) {
+            allNumber.add(String.valueOf(number.charAt(i)));
         }
+        Collections.sort(allNumber);
+        result.add(number + " -> " + getAnswer(allNumber, number));
+    }
 
-        int[] original = Arrays.copyOf(p, p.length);
+    public String getAnswer(ArrayList<String> allNumber, String original) {
+        String[] answer = new String[original.length()];
+        boolean weWork = true;
+        int used = 0;
+        while (!allNumber.isEmpty() && weWork) {
+            String toRemove = null;
 
-        boolean anagram = false;
-        while (nextPermutation(p)) {
-            if (checkNumber(original, p)) {
-                anagram = true;
-                break;
+            for (int i = used; i < original.length(); i++) {
+                for (String currentInserting : allNumber) {
+                    String tmp = String.valueOf(original.charAt(i));
+                    if (!currentInserting.equals(tmp)) {
+                        answer[i] = currentInserting;
+                        toRemove = currentInserting;
+                        used++;
+                        break;
+                    }
+                }
+                if (toRemove != null) {
+                    allNumber.remove(toRemove);
+                } else {
+                    for (int j = answer.length - 1; j >= 0; j--) {
+                        if (answer[i] != null) {
+                            for (String insertTwo : allNumber) {
+                                String tmp = String.valueOf(original.charAt(j));
+                                if (!insertTwo.equals(tmp)) {
+                                    String save = answer[j];
+                                    answer[j] = insertTwo;
+                                    toRemove = insertTwo;
+                                    allNumber.add(save);
+                                    used++;
+                                    break;
+                                }
+                            }
+                            if (toRemove != null) {
+                                allNumber.remove(toRemove);
+                                break;
+                            } else {
+                                weWork = false;
+                            }
+                        }
+                    }
+                    if (toRemove != null) {
+                        allNumber.remove(toRemove);
+                        break;
+                    } else {
+                        weWork = false;
+                    }
+                }
             }
         }
-        if (anagram) {
-            StringBuilder answer = new StringBuilder();
-            for (int aP : p) {
-                answer.append(aP);
-            }
-            result.add(number + "\n" + answer.toString() + "\n");
+        StringBuilder builder = new StringBuilder();
+        if (!allNumber.isEmpty()) {
+            builder.append("Нет анаграммы");
         } else {
-            result.add(number + " -> " + "Нет анаграммы");
+            for (String anAnswer : answer) {
+                if (anAnswer != null) {
+                    builder.append(anAnswer);
+                } else {
+                    builder = new StringBuilder("Нет анаграммы");
+                    break;
+                }
+            }
         }
+
+        return builder.toString();
     }
 
     public ArrayList<String> getResultText() {
         return result;
-    }
-
-    public boolean nextPermutation(int[] p) {
-        for (int a = p.length - 2; a >= 0; --a)
-            if (p[a] < p[a + 1])
-                for (int b = p.length - 1; ; --b)
-                    if (p[b] > p[a]) {
-                        int t = p[a];
-                        p[a] = p[b];
-                        p[b] = t;
-                        for (++a, b = p.length - 1; a < b; ++a, --b) {
-                            t = p[a];
-                            p[a] = p[b];
-                            p[b] = t;
-                        }
-                        return true;
-                    }
-        return false;
-    }
-
-    private boolean checkNumber(int[] original, int[] current) {
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] == current[i]) {
-                return false;
-            }
-        }
-        return true;
     }
 }

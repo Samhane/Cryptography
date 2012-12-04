@@ -86,31 +86,34 @@ public class Main {
                 result = task15.getResultText();
                 break;
             case 17:
+                /*for (int i = 0; i < 1000000; i++) {
+                    source.add(String.valueOf(i));
+                }  */
                 Task17 task17 = new Task17(source);
                 result = task17.getResultText();
-                Task17_work task17_work = new Task17_work(source);
 
-                result.addAll(task17_work.getResultText());
-                /*for (int i = 0; i < 1000000000; i++) {
-                    Task17_work task17_work = new Task17_work(source);
-                    result = task17_work.getResultText();
-                    Task17 task17 = new Task17(source);
-                    ArrayList<String> result2 = task17.getResultText();
-                    String one = result.get(0);
-                    String two = result2.get(0);
-                    if (!one.equals(two)) {
-                        System.out.println(one + " => " + two);
-                        break;
+                Task17_work task17_work = new Task17_work(source);
+                ArrayList<String> result2 = task17_work.getResultText();
+
+                /*if (result.size() != result2.size()) {
+                    System.out.println("Чет размеры не совпадают");
+                } else {
+                    for (int i = 0; i < result.size(); i++) {
+                        if (!result.get(i).equals(result2.get(i))) {
+                            outFile.println("Не совпадают - ");
+                            outFile.println(result.get(i));
+                            outFile.println(result2.get(i));
+                            outFile.println();
+                        }
                     }
-                }
-                  */
+                }  */
                 break;
         }
 
-        for (String currentAnswer : result) {
+        /*for (String currentAnswer : result) {
             System.out.println(currentAnswer);
             outFile.println(currentAnswer);
-        }
+        } */
 
         outFile.close();
         System.out.println("Проверьте выходной файл " + outputFilename);

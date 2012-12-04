@@ -37,7 +37,7 @@ public class Task17_work {
             }
             result.add(number + " -> " + answer.toString() + "\n");
         } else {
-            result.add(number + " -> " + "Нет анаграммы");
+            result.add(number + " -> " + "Нет анаграммы" + "\n");
         }
     }
 
